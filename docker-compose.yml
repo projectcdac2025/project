@@ -1,0 +1,60 @@
+version: '3.8'
+services:
+  gateway:
+    build: ./services/gateway
+    image: app/gateway
+    environment:
+      - PORT=8080
+      - SVC_COMPANIES_URL=http://companies:4001
+      - SVC_VARIANTS_URL=http://variants:4002
+      - SVC_BIKES_URL=http://bikes:4003
+      - SVC_CUSTOMERS_URL=http://customers:4004
+      - SVC_BOOKINGS_URL=http://bookings:4005
+      - SVC_PAYMENTS_URL=http://payments:4006
+      - SVC_ADMIN_URL=http://admin:4007
+    ports:
+      - "8080:8080"
+    depends_on:
+      - companies
+      - variants
+      - bikes
+      - customers
+      - bookings
+      - payments
+      - admin
+  companies:
+    build: ./services/companies
+    image: app/companies
+    environment:
+      - PORT=4001
+  variants:
+    build: ./services/variants
+    image: app/variants
+    environment:
+      - PORT=4002
+  bikes:
+    build: ./services/bikes
+    image: app/bikes
+    environment:
+      - PORT=4003
+  customers:
+    build: ./services/customers
+    image: app/customers
+    environment:
+      - PORT=4004
+  bookings:
+    build: ./services/bookings
+    image: app/bookings
+    environment:
+      - PORT=4005
+  payments:
+    build: ./services/payments
+    image: app/payments
+    environment:
+      - PORT=4006
+  admin:
+    build: ./services/admin
+    image: app/admin
+    environment:
+      - PORT=4007
+
